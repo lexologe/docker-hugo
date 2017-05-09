@@ -1,4 +1,4 @@
-FROM debian:wheezy
+FROM debian:jessie
 MAINTAINER yigal@publysher.nl
 
 # Install pygments (for syntax highlighting) 
@@ -7,7 +7,7 @@ RUN apt-get -qq update \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Download and install hugo
-ENV HUGO_VERSION 0.20.6
+ENV HUGO_VERSION 0.20.7
 ENV HUGO_BINARY hugo_${HUGO_VERSION}_Linux-64bit.deb
 
 
