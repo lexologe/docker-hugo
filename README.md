@@ -1,7 +1,7 @@
-publysher/hugo
+lexologe/hugo
 ==============
 
-`publysher/hugo` is a [Docker](https://www.docker.io) base image for static sites generated with [Hugo](http://gohugo.io). 
+`lexologe/hugo` is a [Docker](https://www.docker.io) base image for static sites generated with [Hugo](http://gohugo.io). 
 
 Images derived from this image can either run as a stand-alone server, or function as a volume image for your web server. 
 
@@ -23,7 +23,7 @@ The image is based on the following directory structure:
 
 In other words, your Hugo site resides in the `site` directory, and you have a simple Dockerfile:
 
-	FROM publysher/hugo 
+	FROM lexologe/hugo 
 
 
 Building your site
@@ -59,8 +59,25 @@ The image is also suitable for use as a volume image for a web server, such as [
 	docker run -d -v /usr/share/nginx/html --name site-data my/image
 	docker run -d --volumes-from site-data --name site-server -p 80:80 nginx
 
+Using this container for Gitlab Pages
+-------------------------------------
 
-Examples
---------
+Create a ```.gitlab-ci.yml``` in root of your hugo repo.
 
-For an example of a Hugo site, have a look at https://github.com/publysher/blog.publysher.nl
+Example ```.gitlab-ci.yml```
+
+```
+pages:
+  image: lexologe/hugo
+  stage: deploy
+  tags:
+  - docker
+  script:
+  - hugo --theme=hugo-theme-crisp --buildDrafts
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
+
+```
